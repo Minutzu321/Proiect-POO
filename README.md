@@ -22,4 +22,5 @@ Clase:
     - adaugarea/stergerea camerelor dupa index, nume sau adresa
     - adaugarea/stergerea spatiilor de stocare
     - calcularea timpului ramas pana spatiul se umple cu inregistrari
+
 Aplicatia poate sa citeasca o serie de camere si spatii de stocare si sa le atribuie dinamic unui server. Acesta poate adauga sau sterge aceste obiecte si poate calcula timpul ramas pana spatiul de stocare se umple.
