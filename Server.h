@@ -46,8 +46,10 @@ public:
     Server& operator = (Server&& server);
 
     ~Server(){
-        delete[] camere;
-        delete[] spStocare;
+        if(camere != nullptr)
+            delete[] camere;
+        if(spStocare != nullptr)
+            delete[] spStocare;
     }
 
     int getNumarCamere();
@@ -79,7 +81,8 @@ void Server::addCamera(Camera camera) {
     }
     camereNoi[numarCamere] = camera;
     numarCamere = numarCamereNoi;
-    delete[] camere;
+    if(camere != nullptr)
+        delete[] camere;
     camere = camereNoi;
 }
 
@@ -96,7 +99,8 @@ void Server::addSpStocare(Stocare& spStoc) {
     }
     spatiiNoi[numarSpStocare] = spStoc;
     numarSpStocare = numarSpatiiNoi;
-    delete[] spStocare;
+    if(spStocare != nullptr)
+        delete[] spStocare;
     spStocare = spatiiNoi;
 }
 
@@ -110,7 +114,8 @@ void Server::stergeCamera(int index) {
     for (int i = index+1; i < numarCamere; ++i) {
         camereNoi[i-1] = camere[i];
     }
-    delete[] camere;
+    if(camere != nullptr)
+        delete[] camere;
     camere = camereNoi;
     numarCamere = numarCamereNoi;
 }
@@ -125,7 +130,8 @@ void Server::stergeSpStocare(int index) {
     for (int i = index+1; i < numarSpStocare; ++i) {
         spStocNoi[i-1] = spStocare[i];
     }
-    delete[] spStocare;
+    if(spStocare != nullptr)
+        delete[] spStocare;
     spStocare = spStocNoi;
     numarSpStocare = numarSpStocNoi;
 }
@@ -228,7 +234,9 @@ ostream& operator<<(ostream &out, Server &s) {
 Server &Server::operator=(const Server& server) {
     if(&server == this) return *this;
 
+    if(camere != nullptr)
     delete[] camere;
+    if(spStocare != nullptr)
     delete[] spStocare;
 
     this->numarCamere = server.numarCamere;
@@ -249,8 +257,10 @@ Server &Server::operator=(const Server& server) {
 Server &Server::operator=(Server&& server) {
     if(&server == this) return *this;
 
-    delete[] camere;
-    delete[] spStocare;
+    if(camere != nullptr)
+        delete[] camere;
+    if(spStocare != nullptr)
+        delete[] spStocare;
 
     this->numarCamere = server.numarCamere;
     this->camere = server.camere;

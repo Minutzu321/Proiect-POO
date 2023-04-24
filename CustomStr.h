@@ -66,7 +66,8 @@ public:
 
     //facilitam convertirea automata din char;
     CustomString& operator = (const char str[]){
-        delete[] data;
+        if(data != nullptr)
+            delete[] data;
         this->size = strlen(str)+1;
         this->data = new char[this->size];
         for (int i = 0; i < size; ++i) {
@@ -102,7 +103,8 @@ public:
         for (int i = poz+1; i < this->size+1; ++i) {
             nou[i] = this->data[i-1];
         }
-        delete[] data;
+        if(data != nullptr)
+            delete[] data;
         this->size++;
         this->data = nou;
     }
