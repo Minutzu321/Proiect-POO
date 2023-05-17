@@ -2,7 +2,9 @@
 #define PROIECT1_CAMERA_H
 
 #include <iostream>
+#include <algorithm>
 #include "CustomStr.h"
+#include "Exceptionuri.h"
 
 
 using namespace std;
@@ -17,6 +19,10 @@ public:
     }
     //Lasam CustomString sa se ocupe de transformarea din char
     Camera(const char* nume, const char* adresa): nume(nume), adresa(adresa){
+        string addr = adresa;
+        if(count(addr.begin(), addr.end(), '.') != 3){
+            throw IpException();
+        }
     }
     //Lasam CustomString sa se ocupe de copy constructor
     Camera(Camera& camera){
@@ -49,6 +55,7 @@ void Camera::setNume(const char str[]){
     this->nume = str;
 }
 void Camera::setAdresa(const char str[]){
+
     this->adresa = str;
 }
 void Camera::setNume(CustomString& nume){

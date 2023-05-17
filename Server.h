@@ -3,8 +3,9 @@
 
 #include "Camera.h"
 #include "Stocare.h"
+#include "EventTarget.h"
 
-class Server{
+class Server: EventTarget{
     int numarCamere = 0;
     Camera* camere;
 
@@ -16,6 +17,8 @@ public:
         camere = nullptr;
         spStocare = nullptr;
     }
+
+    string getInfo() override;
 
     Server(Server& server){
         this->numarCamere = server.numarCamere;
@@ -71,6 +74,8 @@ public:
 
     friend istream & operator >> (istream &in,  Server &s);
     friend ostream & operator << (ostream &out, Server &s);
+
+
 };
 
 void Server::addCamera(Camera camera) {
@@ -93,7 +98,7 @@ void Server::addSpStocare(int GB, int MBS) {
 
 void Server::addSpStocare(Stocare& spStoc) {
     int numarSpatiiNoi = numarSpStocare + 1;
-    Stocare* spatiiNoi = new Stocare[numarSpatiiNoi];
+    auto* spatiiNoi = new Stocare[numarSpatiiNoi];
     for (int i = 0; i < numarSpStocare; ++i) {
         spatiiNoi[i] = spStocare[i];
     }
@@ -105,8 +110,14 @@ void Server::addSpStocare(Stocare& spStoc) {
 }
 
 void Server::stergeCamera(int index) {
+    if(index > numarCamere-1){
+        throw out_of_range("Indexul camerei este prea mare");
+    }
+    if(index < 0){
+        throw out_of_range("Indexul camerei este prea mic");
+    }
     int numarCamereNoi = numarCamere - 1;
-    Camera* camereNoi = new Camera[numarCamereNoi];
+    auto* camereNoi = new Camera[numarCamereNoi];
 
     for (int i = 0; i < index; ++i) {
         camereNoi[i] = camere[i];
@@ -273,6 +284,10 @@ Server &Server::operator=(Server&& server) {
     server.numarSpStocare = 0;
 
     return *this;
+}
+
+string Server::getInfo() {
+    return "Camere: "+std::to_string(numarCamere)+", Spatii Stocare: "+std::to_string(numarSpStocare);
 }
 
 #endif

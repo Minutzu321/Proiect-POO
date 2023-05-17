@@ -12,11 +12,11 @@ public:
     Stocare(int spatiu, int viteza, int plin=0) {
         this->spatiu = spatiu;
         this->viteza = viteza;
-        this->plin = 0;
-        if(plin > 100)
-            plin = 100;
-        else if(plin < 0)
-            plin = 0;
+        this->plin = plin;
+        if(this->plin > 100)
+            this->plin = 100;
+        else if(this->plin < 0)
+            this->plin = 0;
     }
 
     Stocare(Stocare& otherStocare) {
